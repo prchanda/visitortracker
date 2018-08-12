@@ -1,0 +1,2 @@
+# Online Visitor Tracker
+It is an ASP.NET SignalR project which helps in tracking the visitors of the website. Each visitor gets a unique tracking id which gets displayed on the browser as the visitor moves the mouse pointer. This application uses *websocket* transport mechanism for the real-time web functionality. This project is wrapped inside a cloud service solution and is required to setup lab for [Cloud Service troubleshooting series](https://blogs.msdn.microsoft.com/pratyay/2018/07/30/cloud-service-troubleshooting-series/).
