@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ServiceConfiguration serviceName="VisitorTracking"
+                      xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="5"
+                      osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Tracker">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="" />
+    </ConfigurationSettings>
+  </Role>
+  <NetworkConfiguration>
+    <AccessControls>
+      <AccessControl name="ACS">
+        <Rule action="deny" description="ACS" order="100" remoteSubnet="0.0.0.0/0" />
+      </AccessControl>
+    </AccessControls>
+    <EndpointAcls>
+      <EndpointAcl role="Tracker" endPoint="Endpoint1" accessControl="ACS" />
+    </EndpointAcls>
+  </NetworkConfiguration>
+</ServiceConfiguration>

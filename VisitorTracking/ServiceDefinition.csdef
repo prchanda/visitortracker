@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ServiceDefinition name="VisitorTracking" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
+  <LoadBalancerProbes>
+    <LoadBalancerProbe name="probe" protocol="http" path="/tracker" />
+  </LoadBalancerProbes>
+  <WebRole name="Tracker" vmsize="Standard_D1_v2">
+    <Runtime executionContext="elevated" />
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+    </ConfigurationSettings>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="81" loadBalancerProbe="probe" />
+    </Endpoints>
+  </WebRole>
+</ServiceDefinition>
