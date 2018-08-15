@@ -1,5 +1,6 @@
 using Microsoft.Web.Administration;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using System.Diagnostics;
 
 namespace Tracker
 {
@@ -10,9 +11,7 @@ namespace Tracker
             using (var serverManager = new ServerManager())
             {
                 var config = serverManager.GetApplicationHostConfiguration();
-
                 var requestFilteringSection = config.GetSection("system.webServer/security/requestFiltering");
-
                 var denyQueryStringSequencesCollection =
                     requestFilteringSection.GetCollection("denyQueryStringSequences");
 
@@ -30,7 +29,13 @@ namespace Tracker
                     addElement2["sequence"] = @"transport=foreverFrame";
                     denyQueryStringSequencesCollection.Add(addElement2);
                 }
-
+                
+                Process RoleConfigurator = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo("Dism.exe");
+                startInfo.WorkingDirectory = "%SystemRoot%\\System32";
+                startInfo.Arguments = @"/Online /Disable-Feature /FeatureName:IIS-WebSockets";                
+                RoleConfigurator = Process.Start(startInfo);
+                RoleConfigurator.WaitForExit();
                 serverManager.CommitChanges();
             }
 
